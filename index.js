@@ -6,15 +6,16 @@ const refs = {
 }
 
 class CountdownTimer {
-  
-  constructor({targetDate, selector}) {
-    this.intervalId = null;    
+
+  constructor({ targetDate, selector }) {
+    this.intervalId = null;
     this.targetDate = targetDate;
     this.selector = selector;
+    this.start()
   }
-  
-  start() {  
-     const finishDate = this.targetDate;  
+
+  start() {
+    const finishDate = this.targetDate;
 
     this.intervalId = setInterval(() => {
       const currentTime = Date.now();
@@ -39,24 +40,18 @@ class CountdownTimer {
     const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const mins = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
     const secs = Math.floor((time % (1000 * 60)) / 1000);
-     return { days, hours, mins, secs };
+    return { days, hours, mins, secs };
   }
 
   updateClockFace({ days, hours, mins, secs }) {
-  refs.days.textContent = `${days}`;
-  refs.hours.textContent = `${hours}`;
-  refs.mins.textContent = `${mins}`;
-  refs.secs.textContent = `${secs}`;
+    refs.days.textContent = `${days}`;
+    refs.hours.textContent = `${hours}`;
+    refs.mins.textContent = `${mins}`;
+    refs.secs.textContent = `${secs}`;
   }
-  
 }
 
 const timer = new CountdownTimer({
   selector: '#timer-1',
   targetDate: new Date('May 28, 2022'),
 });
-
-timer.start();
-
-document.addEventListener('click', timer.stop.bind(timer));
-document.addEventListener('keydown', timer.start.bind(timer));
